@@ -45,6 +45,9 @@ class Student:
             f'Завершенные курсы: {', '.join(self.finished_courses)}'
         )
         return result
+    
+    def __lt__(self, student):
+        return self.average_grade() < student.average_grade()
         
 class Mentor:
     def __init__(self, name, surname):
@@ -82,6 +85,9 @@ class Lecturer(Mentor):
             f'Средняя оценка за лекции: {self.average_grade()}'
         )
         return result
+
+    def __lt__(self, lecturer):
+        return self.average_grade() < lecturer.average_grade()
 
 class Reviewer(Mentor):
     def __init__(self, name, surname):
@@ -150,3 +156,13 @@ print(f'Информация о проверяющем №2: \n{reviewer2}\n')
 
 print(f'Информация о лекторе №1: \n{lecturer1}\n')
 print(f'Информация о лекторе №2: \n{lecturer2}\n')
+
+if student1<student2:
+    print(f'Лучший студент: {student2.surname} {student2.name}')
+else:
+    print(f'Лучший студент: {student1.surname} {student1.name}')
+
+if lecturer1<lecturer2:
+    print(f'Лучший преподаватель: {lecturer2.surname} {lecturer2.name}')
+else:
+    print(f'Лучший преподаватель: {lecturer2.surname} {lecturer2.name}')
