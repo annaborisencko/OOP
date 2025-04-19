@@ -166,3 +166,44 @@ if lecturer1<lecturer2:
     print(f'Лучший преподаватель: {lecturer2.surname} {lecturer2.name}')
 else:
     print(f'Лучший преподаватель: {lecturer2.surname} {lecturer2.name}')
+
+#Функция для подсчета средней оценки за домашние задания по всем студентам в рамках конкретного курса (в качестве аргументов принимаем список студентов и название курса)
+def get_avgrade_of_students_by_course(students=[], course_name=None):
+    avgrade = 0
+    students_by_course = 0
+    for student in students:
+        if isinstance(student, Student) and course_name in student.courses_in_progress and student.grades.get(course_name):
+            avgrade += student.average_grade(course_name)
+            students_by_course += 1
+        else:
+            avgrade = avgrade
+    if students_by_course:
+        result = avgrade/students_by_course
+    else: 
+        result = f'На заданном курсе отсутствуют студенты, либо оценки им еще не выставлены'
+    return result
+
+#Функция для подсчета средней оценки за лекции всех лекторов в рамках курса (в качестве аргумента принимаем список лекторов и название курса)
+def get_avgrade_of_lecturers_by_course(lecturers=[], course_name=None):
+    avgrade = 0
+    lecturers_by_course = 0
+    for lecturer in lecturers:
+        if isinstance(lecturer, Lecturer) and course_name in lecturer.courses_attached and lecturer.grades.get(course_name):
+            avgrade += lecturer.average_grade(course_name)
+            lecturers_by_course += 1
+        else:
+            avgrade = avgrade
+    if lecturers_by_course:
+        result = avgrade/lecturers_by_course
+    else: 
+        result = f'На заданном курсе отсутствуют преподаватели, либо оценки им еще не выставлены'
+    return result
+
+course_name = 'Python'
+students = [student1, student2]
+avgrade_by_course = get_avgrade_of_students_by_course(students, course_name)
+print(f'Средняя оценка за домашние задания на курсе "{course_name}": {avgrade_by_course}')
+
+lecturers = [lecturer1, lecturer2]
+avgrade_by_course = get_avgrade_of_lecturers_by_course(lecturers, course_name)
+print(f'Средняя оценка за лекции на курсе "{course_name}": {avgrade_by_course}')
